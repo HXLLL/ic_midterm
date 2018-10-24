@@ -59,7 +59,7 @@ def test2():
             for w2 in range(TOTAL):
                 ls.append((w2,np.dot(mat[idx],mat[w2])/np.linalg.norm(mat[idx])/np.linalg.norm(mat[w2])))
             for w in sorted(ls, key=lambda x:x[1],reverse=1)[0:20]:
-                print(w)
+                print(mwords[w[0]][0], w[1])
         else:
             print("words doesn't exists")
 
