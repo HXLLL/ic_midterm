@@ -28,8 +28,8 @@ if __name__ == "__main__":
             if idx+2 < len(words) and words[idx+2] in index: mat[wid][index[words[idx+2]]] += 1
 
     print("words:")
-    print mwords
-    
+    print(mwords)
+
     T = input()
     for i in range(eval(T)):
         w1 = input()
