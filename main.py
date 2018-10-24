@@ -5,6 +5,7 @@ import pdb
 import test
 import pickle
 import test
+import kmeans
 
 global TOTAL
 TOTAL = 3000
@@ -57,9 +58,15 @@ if __name__ == "__main__":
     def pmi():
         for i in range(4*TOTAL):
             alpha = 1.0/np.log(mwords[i%TOTAL][1])**3
-            #alpha = 1
             #if len(mwords[i][0])<=3 : alpha = 0
             for j in range(TOTAL):
                 mat[j][i] *= alpha
     pmi()
-    print("process done")
+    #print("process done")
+
+    k = 100
+    res = kmeans.kmeans(mat, k)
+    for i in res:
+        for j in i:
+            print(mwords[j][0], end=' ')
+        print()
