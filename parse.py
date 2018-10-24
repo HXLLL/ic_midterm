@@ -4,7 +4,7 @@ def getsentences(content):
     return re.split(r'\s*(?:[\.!\?\n]\s*)+', content)
 
 def getwords(sentence):
-    return re.findall(r'\b(?:\w\')+\b', sentence)
+    return re.findall(r'\b(?:\w)+\b', sentence)
 
 def makedic(content):
     dic = {}
