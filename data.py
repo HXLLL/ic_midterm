@@ -1,4 +1,4 @@
 def input_article(filename):
-    f = open(filename, "r", encoding='utf-8')
+    f = open(filename, "r", encoding='gbk')
     content = f.read()
     return content
