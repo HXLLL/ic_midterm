@@ -4,12 +4,13 @@ import numpy as np
 import pdb
 import test
 import pickle
+import test
 
 global TOTAL
-TOTAL = 1000
+TOTAL = 3000
 
 def input_parse():
-    datafile = 'data3.dat'
+    datafile = 'data1.dat'
     article = input_article('article/quora_questions_gbk.txt')
     sentences = parse.getsentences(article)
     print("sentence parsed")
@@ -42,7 +43,7 @@ def input_parse():
 
 
 if __name__ == "__main__":
-    datafile = 'data3.dat'
+    datafile = 'data1.dat'
     article = ''
     sentences = []
     dic = {}
@@ -61,52 +62,4 @@ if __name__ == "__main__":
             for j in range(TOTAL):
                 mat[j][i] *= alpha
     pmi()
-#test1
-    def test1():
-        T = input()
-        for i in range(eval(T)):
-            w1 = input()
-            w2 = input()
-            if w1 in index and w2 in index:
-                print(np.dot(mat[index[w1]],mat[index[w2]])/(np.linalg.norm(mat[index[w1]])*np.linalg.norm(mat[index[w2]])))
-            else:
-                print("words doesn't exists")
-
-    def test2():
-        #T = input()
-        while True:
-            #pdb.set_trace()
-            w1 = input()
-            if w1 in index:
-                ls = []
-                idx = index[w1]
-                for w2 in range(TOTAL):
-                    ls.append((w2,np.dot(mat[idx],mat[w2])/np.linalg.norm(mat[idx])/np.linalg.norm(mat[w2])))
-                for w in sorted(ls, key=lambda x:x[1],reverse=1)[0:20]:
-                    print(mwords[w[0]][0], w[1])
-            else:
-                print("words doesn't exists")
-
-    #test2()
-
-    pdb.set_trace()
-    def test3():
-        vecx = mat[index['happy']]
-        vecy = mat[index['friend']]
-        ax = np.average(vecx)
-        ay = np.average(vecy)
-        vecm = vecx * vecy
-        mm = np.average(vecm)
-        a = set()
-        print("xword:")
-        for i in sorted(enumerate(vecx), key=lambda x:x[1], reverse=1)[0:10]:
-            print(i[0],i[1],int(i[0]/1000),mwords[i[0]%1000][0])
-        print("====================\nyword:")
-        for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:10]:
-            print(i[0],i[1],int(i[0]/1000),mwords[i[0]%1000][0])
-        for i in sorted(enumerate(vecx), key=lambda x:x[1], reverse=1)[0:30]:
-            a.add(i[0])
-        print("====================\nword in commmon:")
-        for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:30]:
-            if i[0] in a: print(i[0],int(i[0]/1000),mwords[i[0]%1000][0])
-    test3()
+    print("process done")
