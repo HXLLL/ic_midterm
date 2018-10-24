@@ -7,11 +7,10 @@ import pickle
 import test
 import kmeans
 
-global TOTAL
 TOTAL = 1000
 
 def input_parse():
-    datafile = 'data1.dat'
+    datafile = 'data3.dat'
     article = input_article('article/quora_questions_gbk.txt')
     sentences = parse.getsentences(article)
     print("sentence parsed")
@@ -53,7 +52,7 @@ def input_parse():
 
 
 if __name__ == "__main__":
-    datafile = 'data1.dat'
+    datafile = 'data2.dat'
     article = ''
     sentences = []
     dic = {}
@@ -64,9 +63,7 @@ if __name__ == "__main__":
     with open(datafile, "rb") as f:
         (article, sentences, dic, index, mwords, mat) = pickle.load(f)
 
-    test.test2(mat,)
-
-    k = 120
+    k = 130
     res = kmeans.kmeans(mat, k)
     with open("result4.txt","w") as f:
         for i in res:

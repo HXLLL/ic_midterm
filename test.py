@@ -1,4 +1,7 @@
 import numpy as np
+
+global TOTAL
+
 def test1():
     T = input()
     for i in range(eval(T)):
@@ -12,7 +15,6 @@ def test1():
 def test2(index, mat, mwords):
     #T = input()
     while True:
-        #pdb.set_trace()
         w1 = input()
         if w1 in index:
             ls = []

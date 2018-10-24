@@ -1,6 +1,8 @@
 import numpy as np
 import pdb
 
+global TOTAL
+
 def calcenter(mat, div, k, n, m):
     cnt = [0 for i in range(k)]
     center = np.zeros(m)
