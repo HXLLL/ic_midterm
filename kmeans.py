@@ -14,8 +14,7 @@ def calcenter(mat, div, k, n, m):
     center /= n
     for i in range(k):
         if cnt[i]!=0: res[i] /= cnt[i]
-        else:
-            res[i] = center
+        else: res[i] = center
     return res
 
 def caldiv(mat, c, k):
@@ -43,8 +42,8 @@ def kmeans(mat, k):
     for i in range(n):
         mat[i] = mat[i]/np.linalg.norm(mat[i])
     div = [0 for i in range(n)]
-    for i in range(k):
-        div[i] = i
+    for i in range(n):
+        div[i] = np.random.randint(k)
     c = calcenter(mat, div, k, n, m)
     div = caldiv(mat, c, k)
     epoch = 1000
@@ -55,7 +54,7 @@ def kmeans(mat, k):
         div = caldiv(mat, c, k)
         changes = diff(div, prediv)
         print("%d changes" % changes)
-        if (changes <= 10): break
+        if changes == 0: break
 
     res = [[] for i in range(k)]
     for i in range(n):

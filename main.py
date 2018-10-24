@@ -2,15 +2,15 @@ from data import *
 import parse
 import numpy as np
 import pdb
-import test
 import pickle
-import test
 import kmeans
+import test
 
+global TOTAL
 TOTAL = 1000
 
 def input_parse():
-    datafile = 'data1.dat'
+    datafile = 'data2.dat'
     article = input_article('article/quora_questions_gbk.txt')
     sentences = parse.getsentences(article)
     print("sentence parsed")
@@ -22,7 +22,7 @@ def input_parse():
         index[s[0]] = idx
 
     print("calcaluting mat")
-    mat = np.zeros((TOTAL,TOTAL))
+    mat = np.zeros((TOTAL,TOTAL*4))
     S = 0
     for s in sentences:
         S += 1
@@ -32,14 +32,14 @@ def input_parse():
             if not w in index: continue
             wid = index[w]
             #if idx-3 >= 0 and words[idx-3] in index: mat[wid][index[words[idx-3]]] += 0.5
-            #if idx-2 >= 0 and words[idx-2] in index: mat[wid][index[words[idx-2]]] += 1
-            if idx-1 >= 0 and words[idx-1] in index: mat[wid][index[words[idx-1]]] += 1
-            if idx+1 < len(words) and words[idx+1] in index: mat[wid][index[words[idx+1]]] += 1
-            #if idx+2 < len(words) and words[idx+2] in index: mat[wid][index[words[idx+2]]] += 1
+            if idx-2 >= 0 and words[idx-2] in index: mat[wid][index[words[idx-2]]] += 1
+            if idx-1 >= 0 and words[idx-1] in index: mat[wid][TOTAL+index[words[idx-1]]] += 1
+            if idx+1 < len(words) and words[idx+1] in index: mat[wid][TOTAL+TOTAL+index[words[idx+1]]] += 1
+            if idx+2 < len(words) and words[idx+2] in index: mat[wid][TOTAL+TOTAL+TOTAL+index[words[idx+2]]] += 1
             #if idx+3 < len(words) and words[idx+3] in index: mat[wid][index[words[idx+3]]] += 0.5
 
     def pmi():
-        for i in range(TOTAL):
+        for i in range(TOTAL*4):
             alpha = 1.0/np.log(mwords[i%TOTAL][1])**2
             #if len(mwords[i][0])<=3 : alpha = 0
             for j in range(TOTAL):
@@ -51,7 +51,7 @@ def input_parse():
 
 
 if __name__ == "__main__":
-    datafile = 'data1.dat'
+    datafile = 'data2.dat'
     article = ''
     sentences = []
     dic = {}
@@ -62,7 +62,8 @@ if __name__ == "__main__":
     with open(datafile, "rb") as f:
         (article, sentences, dic, index, mwords, mat) = pickle.load(f)
 
-    k = 130
+    test.test2(index, mat, mwords)
+    k = 120
     res = kmeans.kmeans(mat, k)
     with open("result4.txt","w") as f:
         for i in res:

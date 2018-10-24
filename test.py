@@ -1,4 +1,5 @@
 import numpy as np
+from main import TOTAL
 
 global TOTAL
 
