@@ -10,7 +10,7 @@ import kmeans
 TOTAL = 1000
 
 def input_parse():
-    datafile = 'data3.dat'
+    datafile = 'data1.dat'
     article = input_article('article/quora_questions_gbk.txt')
     sentences = parse.getsentences(article)
     print("sentence parsed")
@@ -24,7 +24,6 @@ def input_parse():
     print("calcaluting mat")
     mat = np.zeros((TOTAL,TOTAL))
     S = 0
-    #pdb.set_trace()
     for s in sentences:
         S += 1
         if S % 10000 == 0: print(S)
@@ -52,7 +51,7 @@ def input_parse():
 
 
 if __name__ == "__main__":
-    datafile = 'data2.dat'
+    datafile = 'data1.dat'
     article = ''
     sentences = []
     dic = {}
