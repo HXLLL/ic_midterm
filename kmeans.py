@@ -3,15 +3,17 @@ import pdb
 
 def calcenter(mat, div, k, n, m):
     cnt = [0 for i in range(k)]
+    center = np.zeros(m)
     res = [np.zeros(m) for i in range(k)]
     for i,v in enumerate(mat):
+        center += v
         res[div[i]] += v
         cnt[div[i]] += 1
+    center /= n
     for i in range(k):
         if cnt[i]!=0: res[i] /= cnt[i]
         else:
-            for j in range(m):
-                res[i][j] = np.random.random()
+            res[i] = center
     return res
 
 def caldiv(mat, c, k):
@@ -21,16 +23,17 @@ def caldiv(mat, c, k):
         res[i] = dis.index(min(dis))
     return res
 
-#def delta(mat, c, div, k):
-#    cnt = [0 for i in range(k)]
-#    res = [0 for i in range(k)]
-#    for i,v in enumerate(mat):
-#        res[div[i]] += 
-#        cnt[div[i]] += 1
-#    for i in range(k):
-#        if cnt[i]!=0: res[i] /= cnt[i]
-#
-#
+def delta(mat, c, div, k):
+    res = 0
+    for i,v in enumerate(mat):
+        res += np.linalg.norm(v-c[div[i]])
+    return res/mat.shape[0]
+
+def diff(v1,v2):
+    cnt = 0
+    for i,v in enumerate(v1):
+        if v != v2[i]: cnt += 1
+    return cnt
 
 def kmeans(mat, k):
     n = mat.shape[0]
@@ -38,12 +41,19 @@ def kmeans(mat, k):
     for i in range(n):
         mat[i] = mat[i]/np.linalg.norm(mat[i])
     div = [0 for i in range(n)]
+    for i in range(k):
+        div[i] = i
     c = calcenter(mat, div, k, n, m)
     div = caldiv(mat, c, k)
-    epoch = 20
+    epoch = 1000
     for i in range(epoch):
+        print("iteration %d, delta:%.16f" % (i, delta(mat, c, div, k)))
         c = calcenter(mat, div, k, n, m)
+        prediv = div
         div = caldiv(mat, c, k)
+        changes = diff(div, prediv)
+        print("%d changes" % changes)
+        if (changes <= 10): break
 
     res = [[] for i in range(k)]
     for i in range(n):
