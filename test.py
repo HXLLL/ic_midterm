@@ -1,6 +1,8 @@
 import numpy as np
 from main import TOTAL
+from main import GTOTAL
 
+global GTOTAL
 global TOTAL
 
 def test1():
@@ -25,7 +27,7 @@ def test2(index, mat, mwords):
     else:
         print("words doesn't exists")
 
-def test3(index, mat, mwords):
+def test3(index, mat, gwords):
     x = input()
     y = input()
     if not x in index or not y in index:
@@ -40,18 +42,18 @@ def test3(index, mat, mwords):
     a = set()
     print("xword:")
     for i in sorted(enumerate(vecx), key=lambda x:x[1], reverse=1)[0:10]:
-        print(i[0],i[1],int(i[0]/TOTAL),mwords[i[0]%TOTAL][0])
+        print(i[0],i[1],int(i[0]/GTOTAL),gwords[i[0]%GTOTAL][0])
     print("====================\nyword:")
     for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:10]:
-        print(i[0],i[1],int(i[0]/TOTAL),mwords[i[0]%TOTAL][0])
+        print(i[0],i[1],int(i[0]/GTOTAL),gwords[i[0]%GTOTAL][0])
     for i in sorted(enumerate(vecx), key=lambda x:x[1], reverse=1)[0:30]:
         a.add(i[0])
     print("====================\nword in commmon:")
     for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:30]:
-        if i[0] in a: print(i[0],int(i[0]/TOTAL),mwords[i[0]%TOTAL][0])
+        if i[0] in a: print(i[0],int(i[0]/GTOTAL),gwords[i[0]%GTOTAL][0])
 
 def test_word_frequency(mwords):
-    fre = list(map(lambda x: x[1], mwords))
+    fre = list(map(lambda x: np.log(x[1]), mwords))
     import matplotlib.pyplot as plt
     plt.bar(range(len(fre)), sorted(fre, reverse = 1))
     plt.show()
