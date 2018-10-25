@@ -9,8 +9,7 @@ global TOTAL
 TOTAL = 1000
 GTOTAL = 10000
 
-def input_parse():
-    datafile = 'data3.dat'
+def input_parse(datafile):
     article = input_article('article/quora_questions_gbk.txt')
     sentences = parse.getsentences(article)
     print("sentence parsed")
@@ -44,8 +43,12 @@ def input_parse():
 
     def pmi():
         for i in range(GTOTAL*4):
-            alpha = 1.0/np.log(gwords[i%GTOTAL][1])
+            alpha = 1.0/gwords[i%GTOTAL][1]**(1/2)
             #if len(mwords[i][0])<=3 : alpha = 0
+            vec = list(map(lambda x:mat[x][i],range(TOTAL)))
+            if (i%GTOTAL == gindex['chrome']) :
+                pdb.set_trace()
+            if (max(vec) > sum(vec)/3): alpha = 0
             for j in range(TOTAL):
                 mat[j][i] *= alpha
     print("doing pmi")
@@ -55,11 +58,14 @@ def input_parse():
         mat[i] /= np.linalg.norm(mat[i])
 
     with open(datafile, "wb") as f:
-        pickle.dump((article, sentences, dic, index, mwords, gwords, mat),f)
+        pickle.dump((article, sentences, dic, index, gindex, mwords, gwords, mat),f)
 
 
 if __name__ == "__main__":
-    datafile = 'data3.dat'
+    datafile = 'data5.dat'
+    resultfile = 'result8.txt'
+    k = 120
+
     article = ''
     sentences = []
     dic = {}
@@ -69,7 +75,7 @@ if __name__ == "__main__":
     mat = []
 
     with open(datafile, "rb") as f:
-        (article, sentences, dic, index, mwords, gwords, mat) = pickle.load(f)
+        (article, sentences, dic, index, gindex, mwords, gwords, mat) = pickle.load(f)
 
     print('data loaded')
     import test
@@ -79,10 +85,10 @@ if __name__ == "__main__":
             if cmd=='1': test.test_word_frequency(mwords)
             if cmd=='2': test.test2(index, mat, mwords)
             if cmd=='3': test.test3(index, mat, gwords)
+            if cmd=='4': test.test4(gindex, mat, mwords)
     #pt()
-    k = 160
     res = kmeans.kmeans(mat, k)
-    with open("result7.txt","w") as f:
+    with open(resultfile,"w") as f:
         for i in res:
             for j in i:
                 f.write("%s " % mwords[j][0])

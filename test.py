@@ -52,6 +52,19 @@ def test3(index, mat, gwords):
     for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:30]:
         if i[0] in a: print(i[0],int(i[0]/GTOTAL),gwords[i[0]%GTOTAL][0])
 
+def test4(gindex, mat, mwords):
+    x = input()
+    if not x in gindex:
+        print("word do not exists")
+        return
+    y = eval(input())
+    idx = gindex[x]
+    ls = []
+    for i,v in enumerate(mat):
+        ls.append((i, v[y*GTOTAL+idx]))
+    for i in sorted(ls, key=lambda x:x[1], reverse=1)[0:10]:
+        print(mwords[i[0]][0], mat[i[0]][idx+y*GTOTAL])
+
 def test_word_frequency(mwords):
     fre = list(map(lambda x: np.log(x[1]), mwords))
     import matplotlib.pyplot as plt
