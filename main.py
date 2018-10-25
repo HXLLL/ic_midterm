@@ -62,7 +62,7 @@ if __name__ == "__main__":
     with open(datafile, "rb") as f:
         (article, sentences, dic, index, mwords, mat) = pickle.load(f)
 
-    test.test2(index, mat, mwords)
+    test.test3(index, mat, mwords)
     k = 120
     res = kmeans.kmeans(mat, k)
     with open("result4.txt","w") as f:
