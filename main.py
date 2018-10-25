@@ -65,6 +65,7 @@ if __name__ == "__main__":
     def pt():
         while True:
             cmd = input()
+            if cmd=='1': test.test_word_frequency(mwords)
             if cmd=='2': test.test2(index, mat, mwords)
             if cmd=='3': test.test3(index, mat, mwords)
     pt()

@@ -30,7 +30,7 @@ def test3(index, mat, mwords):
     y = input()
     if not x in index or not y in index:
         print("word do not exists")
-        continue
+        return
     vecx = mat[index[x]]
     vecy = mat[index[y]]
     ax = np.average(vecx)
@@ -49,3 +49,9 @@ def test3(index, mat, mwords):
     print("====================\nword in commmon:")
     for i in sorted(enumerate(vecy), key=lambda x:x[1], reverse=1)[0:30]:
         if i[0] in a: print(i[0],int(i[0]/TOTAL),mwords[i[0]%TOTAL][0])
+
+def test_word_frequency(mwords):
+    fre = list(map(lambda x: x[1], mwords))
+    import matplotlib.pyplot as plt
+    plt.bar(range(len(fre)), sorted(fre, reverse = 1))
+    plt.show()
