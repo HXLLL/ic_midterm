@@ -15,8 +15,9 @@ def calcenter(mat, div, k, n, m):
     for i in range(k):
         if cnt[i]!=0: res[i] /= cnt[i]
         else: res[i] = center
-    a = map(lambda x:x/np.linalg.norm(x), res)
-    return list(a)
+    #a = map(lambda x:x/np.linalg.norm(x), res)
+    #return list(a)
+    return res
 
 def caldiv(mat, c, k):
     res = [0 for i in range(mat.shape[0])]

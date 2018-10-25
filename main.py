@@ -80,9 +80,9 @@ if __name__ == "__main__":
             if cmd=='2': test.test2(index, mat, mwords)
             if cmd=='3': test.test3(index, mat, gwords)
     #pt()
-    k = 120
+    k = 160
     res = kmeans.kmeans(mat, k)
-    with open("result5.txt","w") as f:
+    with open("result7.txt","w") as f:
         for i in res:
             for j in i:
                 f.write("%s " % mwords[j][0])
